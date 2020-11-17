@@ -1,14 +1,20 @@
 import React from "react";
-import { pokemonTypes } from "../../constant/data";
+import { useRequest } from "../../hooks/useRequest";
 
 const PokemonFilter = () => {
-    return (
-        <aside className="filter-section">
-            <div>
+    const { data, error } = useRequest(`/type`);
+
+    let content;
+
+    if (error) content = <h1>Something went wrong!</h1>;
+    if (!data && !error) content = <h1>Loading...</h1>;
+    if (data) {
+        content = (
+            <>
                 <button className="btn-filter" key="all">
                     All
                 </button>
-                {pokemonTypes.map((type) => (
+                {data.results.map((type) => (
                     <button
                         className={`btn-filter ${type.name}`}
                         key={type.name}
@@ -16,7 +22,13 @@ const PokemonFilter = () => {
                         {type.name}
                     </button>
                 ))}
-            </div>
+            </>
+        );
+    }
+
+    return (
+        <aside className="filter-section">
+            <div>{content}</div>
         </aside>
     );
 };
