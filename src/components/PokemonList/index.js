@@ -22,7 +22,7 @@ const PokemonList = ({ path, selectedType }) => {
     if (data) {
         content = data.map((group) => {
             if (group.length === 0)
-                return <WarningText text="Pokemon not found :(" />;
+                return <WarningText key={0} text="Pokemon not found :(" />;
 
             return group.map((pokemon) => (
                 <PokemonItem key={pokemon.name} pokemon={pokemon} />
