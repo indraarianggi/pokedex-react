@@ -2,6 +2,8 @@ import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import PokemonItem from "../PokemonItem";
 import { useRequestInfinite } from "../../hooks/useRequestInfinite";
+import Loader from "../Loader";
+import WarningText from "../WarningText";
 
 const PokemonList = ({ path, selectedType }) => {
     const {
@@ -13,11 +15,15 @@ const PokemonList = ({ path, selectedType }) => {
         isReachingEnd,
     } = useRequestInfinite(path, !!selectedType);
 
-    let content;
-    if (error) content = <h1>Something went wrong</h1>;
-    if (!data && !error) content = <h1>Loading...</h1>;
+    let content = <Loader height="250px" width="100%" />;
+
+    if (error) content = <WarningText text="Something went wrong!" />;
+
     if (data) {
         content = data.map((group) => {
+            if (group.length === 0)
+                return <WarningText text="Pokemon not found :(" />;
+
             return group.map((pokemon) => (
                 <PokemonItem key={pokemon.name} pokemon={pokemon} />
             ));
@@ -29,7 +35,14 @@ const PokemonList = ({ path, selectedType }) => {
             <InfiniteScroll
                 loadMore={() => setSize(size + 1)}
                 hasMore={!isLoadingMore && !isReachingEnd}
-                loader={<h1 key={0}>Load More Data...</h1>}
+                loader={
+                    <h3
+                        key={0}
+                        style={{ textAlign: "center", padding: "1rem" }}
+                    >
+                        Load More Data...
+                    </h3>
+                }
                 threshold={500}
             >
                 {content}

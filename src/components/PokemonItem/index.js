@@ -1,14 +1,16 @@
 import React from "react";
 import { useRequest } from "../../hooks/useRequest";
+import Loader from "../Loader";
+import WarningText from "../WarningText";
 
 const PokemonItem = ({ pokemon }) => {
     const { name } = pokemon;
-
     const { data, error } = useRequest(`/pokemon/${name}`);
 
-    let content;
-    if (error) content = <h1>Something went wrong!</h1>;
-    if (!data && !error) content = <h1>Loading...</h1>;
+    let content = <Loader type="card" />;
+
+    if (error) content = <WarningText text="Something went wrong!" />;
+
     if (data) {
         content = (
             <>
