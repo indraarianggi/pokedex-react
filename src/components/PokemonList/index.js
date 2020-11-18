@@ -3,7 +3,7 @@ import InfiniteScroll from "react-infinite-scroller";
 import PokemonItem from "../PokemonItem";
 import { useRequestInfinite } from "../../hooks/useRequestInfinite";
 
-const PokemonList = () => {
+const PokemonList = ({ path, selectedType }) => {
     const {
         data,
         error,
@@ -11,7 +11,7 @@ const PokemonList = () => {
         size,
         setSize,
         isReachingEnd,
-    } = useRequestInfinite("/pokemon");
+    } = useRequestInfinite(path, !!selectedType);
 
     let content;
     if (error) content = <h1>Something went wrong</h1>;

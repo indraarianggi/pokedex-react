@@ -42,7 +42,7 @@ aside > div {
     overflow-x: auto;
 }
 
-aside button.btn-filter {
+aside .btn-filter {
     background-color: #f3f3f3;
     border: none;
     border-radius: 5px;
@@ -53,6 +53,16 @@ aside button.btn-filter {
     padding: 0.75rem 1rem;
     margin: 0 0.25rem;
     cursor: pointer;
+}
+
+aside .btn-filter:hover {
+    background-color: #ffe05d;
+    opacity: 0.75;
+}
+
+aside .btn-filter.active {
+    color: #ffffff;
+    background-color: #ec5858;
 }
 
 main {
