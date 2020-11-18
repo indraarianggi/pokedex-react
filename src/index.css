@@ -220,7 +220,6 @@ main .pokemon:nth-child(even) {
 
     main {
         width: 100%;
-        height: auto;
         padding: 0;
     }
 
